@@ -1,0 +1,58 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdint.h>
+
+int main (int argc, char **argv){
+
+  //store 'A' at x[0] and see if the address is double-word aligned
+  char* x = malloc(24);
+  x[0] = 'A';
+  int xAdrRem = (intptr_t)x % 16;
+  printf("x[0] = %c\n",x[0]);
+  printf("xAdrRem = %d\n", xAdrRem);
+
+
+  
+  //same as above for y
+  char* y = malloc(19);
+  y[0] = 'B';
+  printf("y[0] = %c\n",y[0]);
+  int yAdrRem = (intptr_t)y % 16;
+  printf("yAdrRem = %d\n", yAdrRem);
+
+  //same as above for z
+  char* z = malloc(32);
+  z[0] ='C';
+  printf("z[0] = %c\n",z[0]);
+  int zAdrRem = (intptr_t)z % 16;
+  printf("zAdrRem = %d\n", zAdrRem);
+
+  //print mem addr for x, y, z
+  printf("x = %p\n", x);
+  printf("y = %p\n", y);
+  printf("z = %p\n", z);
+
+  //realloc x, y, z
+  //only newY should get new addr
+  char* newX = realloc(x, 20);
+  char* newY = realloc(y, 25);
+  free(z);
+
+  //see if only newY addr gets update
+  //check if contents are copied over 
+  printf("newX = %p\n", newX);
+  printf("newX[0] = %c\n",newX[0]);
+  printf("newY = %p\n", newY);
+  printf("newY[0] = %c\n",newY[0]);
+
+
+  
+  //see if new addr is double-word aligned
+  int newXAdrRem = (intptr_t)newX % 16;
+  printf("newXAdrRem = %d\n", newXAdrRem);
+  int newYAdrRem = (intptr_t)newY % 16;
+  printf("newYAdrRem = %d\n", newYAdrRem);
+  
+
+  
+}

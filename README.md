@@ -2,7 +2,7 @@
 
 A mark-sweep garbage collector written in C.
 
-Making a running the program:
+Making and running the program:
 
 `make clean gctest`
 
